@@ -26,6 +26,9 @@ The following **stretch** features are implemented:
 ## Video Walkthrough
 
 
+![project3GIF](https://github.com/user-attachments/assets/53a5f8af-4056-43ca-82dc-da2526f0150b)
+
+
 
 
 ## License
