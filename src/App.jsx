@@ -34,11 +34,17 @@ const App = () => {
     return Math.floor(Math.random() * triviaQuestions.length);
   };
 
-  // Handle the next card button click
+// Handle the next card button click (moves to the next sequential card)
   const handleNextCard = () => {
-    const randomIndex = getRandomCardIndex();
-    setCurrentCardIndex(randomIndex); // Update the current card index with the random card
+    setCurrentCardIndex((prevIndex) => 
+      (prevIndex + 1) % triviaQuestions.length // Ensures looping back to first card
+    );
   };
+
+// Handle random card button click (selects a random card)
+const handleRandomCard = () => {
+  setCurrentCardIndex(getRandomCardIndex());
+};
 
   return (
     <div className="App">
