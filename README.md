@@ -2,9 +2,10 @@
 
 Submitted by: **Scarlett Valencia Pulido**
 
-This web app: ** Minigame Quiz testing your knowledge on the Disney TV show "Violetta with 10 questions. There are easy (green cards) and hard (red cards) questions."**
+This web app: ** Minigame Quiz testing your knowledge on the Disney TV show "Violetta with 10 questions. There are easy (green cards) and hard (red cards) questions."** User can enter their guess in a text box before seeing flipside of card.
+Clicking on a submit button shows visual feedback about whether the answer was correct (green text box) or incorrect (red text box). User can move forwards and backwards through deck. Other features are outlined below!
 
-Time spent: **X** hours spent in total
+Time spent: **1.5** hours spent in total 
 
 ## Required Features
 
@@ -20,7 +21,7 @@ The following **stretch** features are implemented:
 - [X] A shuffle button is used to randomize the order of the cards
 - [X] A user's answer may be counted as correct even when it is slightly different from the target answer = Answer is NOT case sensitive. 
 - [X] A counter displays the user's current and longest streak of correct responses
-- [ ] A user can mark a card that they have mastered and have it removed from the pool of answers as well as added to a list of mastered cards
+- [X] A user can mark a card that they have mastered and have it removed from the pool of answers as well as added to a list of mastered cards, so the "Number of Cards reduces"
 
 
 ## Video Walkthrough
