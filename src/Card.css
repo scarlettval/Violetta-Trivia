@@ -104,3 +104,47 @@
     border-radius: 10px; /* Optional: makes images rounded */
   }
   
+  /* Guess Input Field */
+.guess-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.guess-container input {
+  padding: 8px;
+  font-size: 1em;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  width: 250px;
+  text-align: center;
+}
+
+/* Correct guess: Green outline */
+.correct-guess {
+  border: 3px solid green;
+  background-color: #dff0d8; /* Light green background */
+}
+
+/* Wrong guess: Red outline */
+.wrong-guess {
+  border: 3px solid red;
+  background-color: #f8d7da; /* Light red background */
+}
+
+/* Submit Button */
+.guess-container button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #d182f5;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.guess-container button:hover {
+  background-color: #8b49a5;
+}

@@ -29,6 +29,9 @@ const App = () => {
   // State to keep track of the current card index
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
+  const [userGuess, setUserGuess] = useState(""); 
+  const [isCorrect, setIsCorrect] = useState(null); // Track correctness
+
   // Function to get a random card index
   const getRandomCardIndex = () => {
     return Math.floor(Math.random() * triviaQuestions.length);
@@ -36,21 +39,32 @@ const App = () => {
 
 // Handle the next card button click (moves to the next sequential card)
   const handleNextCard = () => {
-    setCurrentCardIndex((prevIndex) => 
-      (prevIndex + 1) % triviaQuestions.length // Ensures looping back to first card
-    );
+    setCurrentCardIndex((prevIndex) => (prevIndex + 1) % triviaQuestions.length);
+    setUserGuess("");
+    setIsCorrect(null);
   };
 
 // Handle the previous card button click (moves to the next sequential card)
 const handlePreviousCard = () => {
-  setCurrentCardIndex((prevIndex) => 
-    (prevIndex -1) % triviaQuestions.length // Ensures looping back to first card
+  setCurrentCardIndex((prevIndex) => (prevIndex -1) % triviaQuestions.length // Ensures looping back to first card
   );
+  setUserGuess("");
+  setIsCorrect(null);
 };
 
 // Handle random card button click (selects a random card)
 const handleRandomCard = () => {
-  setCurrentCardIndex(getRandomCardIndex());
+  setCurrentCardIndex(Math.floor(Math.random() * triviaQuestions.length));
+  setUserGuess("");
+    setIsCorrect(null);
+};
+
+const handleGuessSubmit = () => {
+  if (userGuess.trim().toLowerCase() === triviaQuestions[currentCardIndex].answer.toLowerCase()) {
+    setIsCorrect(true);
+  } else {
+    setIsCorrect(false);
+  }
 };
 
   return (
@@ -75,6 +89,19 @@ const handleRandomCard = () => {
 
         />
       </div>
+
+      {/* Guessing Section */}
+      <div className="guess-container">
+        <label htmlFor="guessInput">Guess the answer here:</label>
+        <input 
+          id="guessInput"
+          type="text"
+          value={userGuess}
+          onChange={(e) => setUserGuess(e.target.value)}
+          className={isCorrect === null ? "" : isCorrect ? "correct-guess" : "wrong-guess"} // Apply CSS class
+        />
+        <button onClick={handleGuessSubmit}>Submit Guess</button>
+        </div>
 
       <div className="navigation-button-container">
         <button onClick={handlePreviousCard}>Previous</button>
