@@ -2,7 +2,7 @@
 
 Submitted by: **Scarlett Valencia Pulido**
 
-This web app: ** Minigame Quiz testing your knowledge on the Disney TV show "Violetta with 10 questions. There are easy (green cards) and hard (red cards) questions."** User can enter their guess in a text box before seeing flipside of card.
+This web app: **Minigame Quiz testing your knowledge on the Disney TV show "Violetta with 10 questions. There are easy (green cards) and hard (red cards) questions."** User can enter their guess in a text box before seeing flipside of card.
 Clicking on a submit button shows visual feedback about whether the answer was correct (green text box) or incorrect (red text box). User can move forwards and backwards through deck. Other features are outlined below!
 
 Time spent: **1.5** hours spent in total 
