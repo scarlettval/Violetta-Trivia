@@ -28,44 +28,52 @@ const App = () => {
 
   // State to keep track of the current card index
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
-
   const [userGuess, setUserGuess] = useState(""); 
   const [isCorrect, setIsCorrect] = useState(null); // Track correctness
+  const [currentStreak, setCurrentStreak] = useState(0); // Current streak counter
+  const [longestStreak, setLongestStreak] = useState(0); // Longest streak counter
 
   // Function to get a random card index
   const getRandomCardIndex = () => {
     return Math.floor(Math.random() * triviaQuestions.length);
   };
 
-// Handle the next card button click (moves to the next sequential card)
+  // Handle the next card button click (moves to the next sequential card)
   const handleNextCard = () => {
     setCurrentCardIndex((prevIndex) => (prevIndex + 1) % triviaQuestions.length);
     setUserGuess("");
     setIsCorrect(null);
   };
 
-// Handle the previous card button click (moves to the next sequential card)
-const handlePreviousCard = () => {
-  setCurrentCardIndex((prevIndex) => (prevIndex -1) % triviaQuestions.length // Ensures looping back to first card
-  );
-  setUserGuess("");
-  setIsCorrect(null);
-};
-
-// Handle random card button click (selects a random card)
-const handleRandomCard = () => {
-  setCurrentCardIndex(Math.floor(Math.random() * triviaQuestions.length));
-  setUserGuess("");
+  // Handle the previous card button click (moves to the next sequential card)
+  const handlePreviousCard = () => {
+    setCurrentCardIndex((prevIndex) => (prevIndex - 1 + triviaQuestions.length) % triviaQuestions.length); // Ensures looping back to last card
+    setUserGuess("");
     setIsCorrect(null);
-};
+  };
 
-const handleGuessSubmit = () => {
-  if (userGuess.trim().toLowerCase() === triviaQuestions[currentCardIndex].answer.toLowerCase()) {
-    setIsCorrect(true);
-  } else {
-    setIsCorrect(false);
-  }
-};
+  // Handle random card button click (selects a random card)
+  const handleRandomCard = () => {
+    setCurrentCardIndex(getRandomCardIndex());
+    setUserGuess("");
+    setIsCorrect(null);
+  };
+
+  const handleGuessSubmit = () => {
+    if (userGuess.trim().toLowerCase() === triviaQuestions[currentCardIndex].answer.toLowerCase()) {
+      setIsCorrect(true);
+      setCurrentStreak((prevStreak) => {
+        const newStreak = prevStreak + 1;
+        if (newStreak > longestStreak) {
+          setLongestStreak(newStreak);
+        }
+        return newStreak;
+      });
+    } else {
+      setIsCorrect(false);
+      setCurrentStreak(0); // Reset streak on incorrect guess
+    }
+  };
 
   return (
     <div className="App">
@@ -74,6 +82,7 @@ const handleGuessSubmit = () => {
         <h2>How well do you know the show?</h2>
         <h2>Easy: Green, Hard: Red</h2>
         <h3>Number of cards: {triviaQuestions.length}</h3>
+        <h3>Current Streak: {currentStreak}, Longest Streak: {longestStreak}</h3>
         <h4>by Scarlett Valencia Pulido</h4>
       </div>
 
@@ -85,8 +94,6 @@ const handleGuessSubmit = () => {
           answer={triviaQuestions[currentCardIndex].answer}
           difficulty={triviaQuestions[currentCardIndex].difficulty} // Pass the difficulty prop
           image={triviaQuestions[currentCardIndex].image}
-
-
         />
       </div>
 
@@ -101,14 +108,12 @@ const handleGuessSubmit = () => {
           className={isCorrect === null ? "" : isCorrect ? "correct-guess" : "wrong-guess"} // Apply CSS class
         />
         <button onClick={handleGuessSubmit}>Submit Guess</button>
-        </div>
+      </div>
 
       <div className="navigation-button-container">
         <button onClick={handlePreviousCard}>Previous</button>
         <button onClick={handleNextCard}>Next</button>
       </div>
-
-     
 
       <div className="random-button-container">
         <button onClick={handleRandomCard}>Random 🔀</button>
