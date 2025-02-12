@@ -41,6 +41,13 @@ const App = () => {
     );
   };
 
+// Handle the previous card button click (moves to the next sequential card)
+const handlePreviousCard = () => {
+  setCurrentCardIndex((prevIndex) => 
+    (prevIndex -1) % triviaQuestions.length // Ensures looping back to first card
+  );
+};
+
 // Handle random card button click (selects a random card)
 const handleRandomCard = () => {
   setCurrentCardIndex(getRandomCardIndex());
@@ -69,8 +76,15 @@ const handleRandomCard = () => {
         />
       </div>
 
-      <div className="next-button-container">
+      <div className="navigation-button-container">
+        <button onClick={handlePreviousCard}>Previous</button>
         <button onClick={handleNextCard}>Next</button>
+      </div>
+
+     
+
+      <div className="random-button-container">
+        <button onClick={handleRandomCard}>Random 🔀</button>
       </div>
     </div>
   );
