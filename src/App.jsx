@@ -13,9 +13,10 @@ import oso from "./assets/oso.jpg";
 import german from "./assets/german.jpg";
 
 const App = () => {
-  const triviaQuestions = [
+  //updates dynamically
+  const [triviaQuestions, setTriviaQuestions] = useState([
     { question: "Who is Violetta's first love interest?", answer: "Tomas", difficulty:"easy", image: tomasImage },
-    { question: "What is the name of Violetta's 2 best friends?", answer: "Francesca and Camila", difficulty:"easy", image: friends},
+    { question: "What is the name of Violetta's 2 best friends?", answer: "Francesca and Camila", difficulty:"easy", image: friends },
     { question: "Which city does Violetta live in?", answer: "Buenos Aires", difficulty:"easy", image: buenosaires },
     { question: "In what season does Violetta cut her hair?", answer: "Season 2", difficulty:"hard", image: shorth },
     { question: "What is the original name of On Beat Studio?", answer: "Studio 21", difficulty:"hard", image: studio },
@@ -24,7 +25,8 @@ const App = () => {
     { question: "Who is the Producer of YouMix?", answer: "Marotti", difficulty:"hard", image: marotti },
     { question: "Who is 'El Oso Pardo'?", answer: "Braco", difficulty:"hard", image: oso },
     { question: "What is German's profession?", answer: "Architect", difficulty:"easy", image: german },
-  ];
+  ]);
+  
 
   // State to keep track of the current card index
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -32,6 +34,22 @@ const App = () => {
   const [isCorrect, setIsCorrect] = useState(null); // Track correctness
   const [currentStreak, setCurrentStreak] = useState(0); // Current streak counter
   const [longestStreak, setLongestStreak] = useState(0); // Longest streak counter
+  const [masteredCards, setMasteredCards] = useState([]); // Store mastered cards
+
+const handleMarkAsMastered = () => {
+  const masteredCard = triviaQuestions[currentCardIndex];
+  if (!masteredCards.includes(masteredCard)) {
+    setMasteredCards([...masteredCards, masteredCard]);
+  }
+  setTriviaQuestions(triviaQuestions.filter((_, index) => index !== currentCardIndex));
+
+  // Move to the next card if there are more cards left
+  if (triviaQuestions.length > 1) {
+    setCurrentCardIndex((prevIndex) => prevIndex % (triviaQuestions.length - 1));
+  } else {
+    setCurrentCardIndex(0); // Reset index if no more cards
+  }
+};
 
   // Function to get a random card index
   const getRandomCardIndex = () => {
@@ -118,6 +136,11 @@ const App = () => {
       <div className="random-button-container">
         <button onClick={handleRandomCard}>Random 🔀</button>
       </div>
+
+      <div className="mastered-button-container">
+        <button onClick={handleMarkAsMastered}>Mastered ✅</button>
+      </div>
+
     </div>
   );
 };
