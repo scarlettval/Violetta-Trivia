@@ -70,12 +70,24 @@ const handleMarkAsMastered = () => {
     setIsCorrect(null);
   };
 
-  // Handle random card button click (selects a random card)
-  const handleRandomCard = () => {
-    setCurrentCardIndex(getRandomCardIndex());
-    setUserGuess("");
-    setIsCorrect(null);
-  };
+  // Function to shuffle the array (Fisher-Yates shuffle algorithm)
+const shuffleArray = (array) => {
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]]; // Swap elements
+  }
+  return shuffledArray;
+};
+
+// Handle random card button click (shuffles the cards)
+const handleRandomCard = () => {
+  const shuffledQuestions = shuffleArray(triviaQuestions);
+  setTriviaQuestions(shuffledQuestions); // Update the triviaQuestions array to the shuffled one
+  setCurrentCardIndex(0); // Set the current card index to the first card of the shuffled list
+  setUserGuess("");
+  setIsCorrect(null);
+};
 
   const handleGuessSubmit = () => {
     if (userGuess.trim().toLowerCase() === triviaQuestions[currentCardIndex].answer.toLowerCase()) {
